@@ -5,8 +5,8 @@ const todoSchema = require('../schemas/todoSchema');
 const Todo = new mongoose.model("Todo", todoSchema);
 
 // GET ALL THE Todos
-router.get('/', async (req, res) => {
-    await Todo.find({status: 'active'})
+router.get('/', (req, res) => {
+    Todo.find({status: 'active'})
     .select({
         _id: 0,
         date: 0,
@@ -28,8 +28,8 @@ router.get('/', async (req, res) => {
 })
 
 // GET A TODO By id
-router.get('/:id', async (req, res) => {
-    await Todo.find({_id: req.params.id}, (err, docs) => {
+router.get('/:id', (req, res) => {
+    Todo.find({_id: req.params.id}, (err, docs) => {
         if (err) {
             res.status(500).json({
                 error: 'there was an server site error'
@@ -44,9 +44,9 @@ router.get('/:id', async (req, res) => {
 })
 
 // POST TODO
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     const newTodo = new Todo(req.body);
-    await newTodo.save((err) => {
+    newTodo.save((err) => {
         if (err) {
             res.status(500).json({
                 error: 'there was an server site error'
@@ -60,8 +60,8 @@ router.post('/', async (req, res) => {
 })
 
 // POST MULTIPLE TODO
-router.post('/all', async (req, res) => {
-    await Todo.insertMany(req.body, (err) => {
+router.post('/all', (req, res) => {
+    Todo.insertMany(req.body, (err) => {
         if (err) {
             res.status(500).json({
                 error: 'there was an server site error'
@@ -75,8 +75,8 @@ router.post('/all', async (req, res) => {
 })
 
 // PUT TODO
-router.put('/:id', async (req, res) => {
-    await Todo.findByIdAndUpdate({_id: req.params.id}, {
+router.put('/:id', (req, res) => {
+    Todo.findByIdAndUpdate({_id: req.params.id}, {
         $set: {
            status: 'active' 
         },
@@ -99,8 +99,8 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE TODO
-router.delete('/:id', async (req, res) => {
-    await Todo.deleteOne({_id: req.params.id}, (err) => {
+router.delete('/:id', (req, res) => {
+    Todo.deleteOne({_id: req.params.id}, (err) => {
         if (err) {
             res.status(500).json({
                 error: 'there was an server site error'
