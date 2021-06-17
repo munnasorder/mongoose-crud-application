@@ -1,7 +1,8 @@
 const express = require('express');
 const port = 3000;
 const mongoose = require('mongoose');
-const todoHandler = require('./routeHandler/todoHandler')
+const todoHandler = require('./routeHandler/todoHandler');
+const userHandler = require('./routeHandler/userHandler');
 
 // initialize application
 const app = express();
@@ -17,7 +18,8 @@ mongoose
 .catch(err => console.log(err))
 
 // application routes
-app.use('/todo', todoHandler)
+app.use('/todo', todoHandler);
+app.use('/user', userHandler);
 
 // default error handler
 function errorHandler(err, req, res, next) {
